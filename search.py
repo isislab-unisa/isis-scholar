@@ -4,6 +4,11 @@ import pandas as pd
 
 from pybliometrics.scopus import AbstractRetrieval
 from pybliometrics.scopus import AuthorRetrieval
+from pybliometrics.scopus.utils import config
+
+print(config['Authentication']['APIKey']) 
+print(config['Directories']['AbstractRetrieval']) 
+
 
 df = pd.DataFrame(columns=['year','owner','title','abstract','keywords','source','type','doi','eid','bibtex','html'])
 
