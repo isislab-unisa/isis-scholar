@@ -16,7 +16,7 @@ jobs:
           python-version: '3.x'
           cache: 'pip'
       - run: pip install -r requirements.txt
-      - run: sed -i 's/{{KEY}}/$SCOPUS_KEY/g' config.ini
+      - run: sed -i 's/{{KEY}}/'$SCOPUS_KEY'/g' config.ini
         env:
             SCOPUS_KEY: ${{secrets.SCOPUS}}
       - run: cat config.ini
