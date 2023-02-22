@@ -68,28 +68,6 @@ def generate_html(dataframe: pd.DataFrame):
     </body>
     </html>
     """
-    # html = f"""
-    # <html>
-    # <header>
-    #     <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
-    # </header>
-    
-    # <body>
-    # {table_html}
-    # <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-    # <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    # <script>
-    #     $(document).ready( function () {{
-    #         $('#table').DataTable({{
-    #             paging: true,    
-    #             // scrollY: 400,
-    #             order: [[1, 'desc']],
-    #         }});
-    #     }});
-    # </script>
-    # </body>
-    # </html>
-    # """
     return html
 
 df = pd.DataFrame(columns=['year','owner','title','abstract','keywords','source','type','doi','eid','bibtex','html'])
