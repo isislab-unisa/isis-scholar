@@ -1,0 +1,25 @@
+name: Run Script
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+      - run: sed -i 's/{{KEY}}/'$SCOPUS_KEY'/g' config.ini
+        env:
+            SCOPUS_KEY: ${{secrets.SCOPUS}}
+      - run: cat config.ini
+      - run: python search.py
+        env:
+            PYB_CONFIG_FILE: ./config.ini
