@@ -92,7 +92,7 @@ def generate_html(dataframe: pd.DataFrame):
     # """
     return html
 
-df = pd.DataFrame(columns=['year','owner','title','abstract','keywords','source','type','doi','eid'])
+df = pd.DataFrame(columns=['year','owner','title','abstract','keywords','source','type','doi','eid','bibtex','html'])
 
 authors ={
 "Carmine Spagnuolo" : '55757507300',
@@ -106,12 +106,19 @@ for author in authors:
     documents = sauthor.get_documents()
     print("Author: ",author," - ",len(documents)," documents")
     for doc in documents:
-        df.loc[p_index] = [doc.coverDate, author, doc.title, doc.description, doc.authkeywords,doc.publicationName,doc.subtypeDescription, 'https://www.doi.org/'+str(doc.doi), doc.eid]
+        bib = AbstractRetrieval(doc.eid, view="FULL")
+        bibtex = ''
+        if(bib != None and bib.aggregationType == 'Journal'):
+             bibtex = bib.get_bibtex()
+        df.loc[p_index] = [doc.coverDate, author, doc.title, doc.description, doc.authkeywords,doc.publicationName,bib.aggregationType, 'https://www.doi.org/'+str(doc.doi), doc.eid, bibtex,bib.get_html()]
         p_index+=1
+        
+        # if(bib != None and bib.aggregationType == 'Journal'):
+        #     print(bib.get_bibtex())
 
 df = df.sort_values(by=['year'],ascending=False)
 df = df.drop_duplicates(subset=['eid'], keep='first')
-file_name  = datetime.datetime.now().strftime('publications_%m_%d_%Y_%H_%M_%S') 
+file_name  = datetime.datetime.now().strftime('publications') 
 df.to_csv(file_name+'.csv',index=False)
 df.to_json(file_name+'.json',orient='split', index=False)
 html = generate_html(df)
