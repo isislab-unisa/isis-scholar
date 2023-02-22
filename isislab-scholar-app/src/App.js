@@ -216,8 +216,8 @@ function App() {
               direction="horizontal"
               align="center"
           >
-              <img style={{float: 'left'}} src={require('./logo.png')}/>
-              <h1 style={{fontSize: '48px'}}>Scholar</h1>
+              <img style={{float: 'left', width: '150px'}} src={require('./logo.png')}/>
+              {/*<h1 style={{fontSize: '48px'}}>Scholar</h1>*/}
           </Space>
           <Space
               style={{
