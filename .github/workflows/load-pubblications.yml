@@ -21,3 +21,5 @@ jobs:
             SCOPUS_KEY: ${{secrets.SCOPUS}}
       - run: cat config.ini
       - run: python search.py
+        env:
+            PYB_CONFIG_FILE: ./config.ini

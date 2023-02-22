@@ -1,8 +1,7 @@
 
 import datetime
 import pandas as pd
-import os
-os.environ['PYB_CONFIG_FILE'] = "./config.ini"
+
 from pybliometrics.scopus import AbstractRetrieval
 from pybliometrics.scopus import AuthorRetrieval
 
