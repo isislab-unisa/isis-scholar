@@ -10,9 +10,10 @@ function App() {
     const [data, setData] = useState([])
     const [filters, setFilters] = useState([])
     const [keywordsOptions, setKeywordsOptions] = useState([])
-    const [ownerOptions, setOwnerOptions] = useState([])
+    const [ownersOptions, setOwnersOptions] = useState([])
     const [sourceOptions, setSourceOptions] = useState([])
     const [typesOptions, setTypesOptions] = useState([])
+    const [yearsOptions, setYearsOptions] = useState([])
     const [row, setRow] = useState(null)
     const [showAbstractModal, setShowAbstractModal] = useState(false)
 
@@ -25,6 +26,7 @@ function App() {
                 const owners = [...new Set(data.map(item => item[1]))];
                 const sources = [...new Set(data.map(item => item[5]))];
                 const types = [...new Set(data.map(item => item[6]))];
+                const years = [...new Set(data.map(item => item[0].split('-')[0]))];
                 let keywords = []
                 data.map(d => {
                     if (d[4])
@@ -41,13 +43,22 @@ function App() {
                 setKeywordsOptions(options)
 
                 options = []
+                years.map(k =>
+                    options.push({
+                        label: k,
+                        value: k,
+                    })
+                )
+                setYearsOptions(options)
+
+                options = []
                 owners.map(k =>
                     options.push({
                         label: k,
                         value: k,
                     })
                 )
-                setOwnerOptions(options)
+                setOwnersOptions(options)
 
                 options = []
                 sources.map(k =>
@@ -68,6 +79,10 @@ function App() {
                 setTypesOptions(options)
 
                 let f = [
+                    {
+                        field: '0',//year
+                        values: []
+                    },
                     {
                         field: '1',//owner
                         values: []
@@ -185,6 +200,12 @@ function App() {
         setFilters(flt)
 
     }
+    const handleYearsChange = (values) => {
+        let flt = cloneDeep(filters)
+        let f = flt.find(fl => fl.field === '0')
+        f.values = values
+        setFilters(flt)
+    }
 
     function copy_data(id) {
         let r = document.createRange()
@@ -244,6 +265,19 @@ function App() {
                   width: '100%',
               }}
           >
+              <Card title={'Year'} className={'filter1'}>
+                  <Select
+                      key={'year'}
+                      mode="multiple"
+                      style={{
+                          width: '100%',
+                      }}
+                      placeholder="Please select"
+                      /*defaultValue={['a10', 'c12']}*/
+                      onChange={handleYearsChange}
+                      options={yearsOptions}
+                  />
+              </Card>
               <Card title={'Owner'} className={'filter1'}>
                   <Select
                       key={'owner'}
@@ -254,7 +288,7 @@ function App() {
                       placeholder="Please select"
                       /*defaultValue={['a10', 'c12']}*/
                       onChange={handleOwnersChange}
-                      options={ownerOptions}
+                      options={ownersOptions}
                   />
               </Card>
               <Card title={'Source'} className={'filter1'}>

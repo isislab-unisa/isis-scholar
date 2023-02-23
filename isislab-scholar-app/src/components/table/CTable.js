@@ -59,22 +59,24 @@ export default function CTable ({url, dataSource, columns, actions, api, filters
         }*/
         let data = cloneDeep(dataSource)
         if(filters){
+            //No filters - show all entries
             let include = true
             filters.map(f => {
                 if(f.values.length > 0)
                     include = false
             })
             if(!include) {
+                //apply filters
                 data = data.filter(d => {
-                    include = false
+                    include = true
                     for (let filter of filters) {
                         for (let values of filter.values) {
-                            if (d[filter.field] && d[filter.field].indexOf(values) !== -1) {
-                                include = true
+                            if (d[filter.field] && d[filter.field].indexOf(values) === -1) {
+                                include = false
                                 break
                             }
                         }
-                        if(include) break
+                        if(!include) break
                     }
                     return include
                 })
