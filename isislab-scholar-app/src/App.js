@@ -2,18 +2,19 @@ import './App.css';
 import CTable from './components/table/CTable'
 import {useEffect, useState} from "react";
 import {API} from "./components/api";
-import {Card, Descriptions, Modal, Select, Space, notification} from "antd";
+import {Input, Descriptions, Modal, Select, Space, notification} from "antd";
 import cloneDeep from "lodash.clonedeep";
 
 function App() {
 
     const [data, setData] = useState([])
-    const [filters, setFilters] = useState([])
+    const [filters, setFilters] = useState(null)
     const [keywordsOptions, setKeywordsOptions] = useState([])
     const [ownersOptions, setOwnersOptions] = useState([])
     const [sourceOptions, setSourceOptions] = useState([])
     const [typesOptions, setTypesOptions] = useState([])
     const [yearsOptions, setYearsOptions] = useState([])
+    const [globalSearch, setGlobalSearch] = useState('')
     const [row, setRow] = useState(null)
     const [showAbstractModal, setShowAbstractModal] = useState(false)
 
@@ -92,6 +93,10 @@ function App() {
         setTypesOptions(options)
 
         let f = [
+            {
+                field: '11',//global search
+                values: ''
+            },
             {
                 field: '0',//year
                 values: []
@@ -268,6 +273,13 @@ function App() {
         }
     }
 
+    const onGlobalSearchChange = (e) => {
+        let flt = cloneDeep(filters)
+        let f = flt.find(fl => fl.field === '11')
+        f.values = e.target.value
+        setFilters(flt)
+    }
+
 
     return (
       <div className="App">
@@ -305,22 +317,18 @@ function App() {
                   <Select
                       key={'type'}
                       mode="multiple"
-                      style={{
-                          width: '100%',
-                      }}
+                      className={'filter1'}
                       placeholder="Please select"
                       /*defaultValue={['a10', 'c12']}*/
                       onChange={handleTypessChange}
                       options={typesOptions}
                   />
               </Descriptions.Item>
-              <Descriptions.Item label="Year">
+              <Descriptions.Item label="Year" >
                   <Select
                       key={'year'}
                       mode="multiple"
-                      style={{
-                          width: '100%',
-                      }}
+                      className={'filter1'}
                       placeholder="Please select"
                       /*defaultValue={['a10', 'c12']}*/
                       onChange={handleYearsChange}
@@ -331,13 +339,18 @@ function App() {
                   <Select
                       key={'owner'}
                       mode="multiple"
-                      style={{
-                          width: '100%',
-                      }}
+                      className={'filter1'}
                       placeholder="Please select"
                       /*defaultValue={['a10', 'c12']}*/
                       onChange={handleOwnersChange}
                       options={ownersOptions}
+                  />
+              </Descriptions.Item>
+              <Descriptions.Item label="Global Search">
+                  <Input.Search
+                      allowClear
+                      className={'filter1'}
+                      onChange={onGlobalSearchChange}
                   />
               </Descriptions.Item>
               <Descriptions.Item label="Source">
@@ -345,10 +358,7 @@ function App() {
                       key={'source'}
                       mode="multiple"
                       placeholder="Please select"
-                      style={{
-                          width: '100%',
-                      }}
-                      /*defaultValue={['a10', 'c12']}*/
+                      className={'filter1'}
                       onChange={handleSourcesChange}
                       options={sourceOptions}
                   />
@@ -357,9 +367,7 @@ function App() {
                   <Select
                       key={'keywords'}
                       mode="multiple"
-                      style={{
-                          width: '100%',
-                      }}
+                      className={'filter1'}
                       placeholder="Please select"
                       /*defaultValue={['a10', 'c12']}*/
                       onChange={handleKeywordsChange}

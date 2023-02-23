@@ -62,22 +62,39 @@ export default function CTable ({url, dataSource, columns, actions, api, filters
             //No filters - show all entries
             let include = true
             filters.map(f => {
-                if(f.values.length > 0)
+                if(f.field !== '11' && f.values.length > 0)
                     include = false
             })
-            if(!include) {
+            if(!include || (include && filters.find(f => f.field === '11').values !== '')) {
                 //apply filters
                 data = data.filter(d => {
                     include = true
                     let mask = []
                     for (let filter of filters) {
-                        if(filter.values.length === 0) continue
+                        if(filter.values.length === 0 || (filter.field === '11' && filter.values === '')) continue
                         mask[filter.field] = { status : [], state : false }
-                        for (let value of filter.values) {
-                            mask[filter.field].status.push({value : value , state : d[filter.field] && d[filter.field].indexOf(value) !== -1})
+                        if(filter.field !== '11') {
+                            for (let value of filter.values) {
+                                mask[filter.field].status.push({
+                                    value: value,
+                                    state: d[filter.field] && d[filter.field].indexOf(value) !== -1
+                                })
+                            }
+                        }else{
+                            let globalSearchResponse = false
+                            d.map(dd => {
+                                if(!globalSearchResponse)
+                                   globalSearchResponse = dd && dd.toLowerCase().indexOf(filter.values.toLowerCase()) !== -1
+                            })
+                            mask['11'].status.push({
+                                value: 'global',
+                                state: globalSearchResponse
+                            })
                         }
                     }
-                    mask.map(field => field.status.map(value => {field.state = field.state || value.state}))
+                    mask.map(field => field.status.map(value => {
+                        field.state = field.state || value.state
+                    }))
                     mask.map(field => include = field.state && include)
                     return include
                 })
