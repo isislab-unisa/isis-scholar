@@ -1,6 +1,6 @@
 {
   "name": "isislab-scholar-app",
-  "homepage": "https://isislab-unisa.github.io",
+  "homepage": "https://isislab-unisa.github.io/isis-scholar",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
