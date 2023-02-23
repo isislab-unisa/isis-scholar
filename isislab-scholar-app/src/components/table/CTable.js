@@ -7,7 +7,7 @@ import {API} from "../api";
 
 //todo refactor getColumns (row render 4 times?)
 
-export default function CTable ({url, dataSource, columns, actions, api, filters}) {
+export default function CTable ({url, dataSource, columns, actions, api, filters, updateFilters}) {
 
     const container = React.createRef();
 
@@ -69,20 +69,22 @@ export default function CTable ({url, dataSource, columns, actions, api, filters
                 //apply filters
                 data = data.filter(d => {
                     include = true
+                    let mask = []
                     for (let filter of filters) {
-                        for (let values of filter.values) {
-                            if (d[filter.field] && d[filter.field].indexOf(values) === -1) {
-                                include = false
-                                break
-                            }
+                        if(filter.values.length === 0) continue
+                        mask[filter.field] = { status : [], state : false }
+                        for (let value of filter.values) {
+                            mask[filter.field].status.push({value : value , state : d[filter.field] && d[filter.field].indexOf(value) !== -1})
                         }
-                        if(!include) break
                     }
+                    mask.map(field => field.status.map(value => {field.state = field.state || value.state}))
+                    mask.map(field => include = field.state && include)
                     return include
                 })
             }
         }
-        setDataSource(data);
+        setDataSource(data)
+        updateFilters(data)
     }
 
     const getApi = () => {

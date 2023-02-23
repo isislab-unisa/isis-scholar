@@ -23,86 +23,8 @@ function App() {
                 let response = await API.request('GET', `https://raw.githubusercontent.com/isislab-unisa/isis-scholar/master/data/publications.json`);
                 //console.log(response)
                 let data = response.data
-                const owners = [...new Set(data.map(item => item[1]))];
-                const sources = [...new Set(data.map(item => item[5]))];
-                const types = [...new Set(data.map(item => item[6]))];
-                const years = [...new Set(data.map(item => item[0].split('-')[0]))];
-                let keywords = []
-                data.map(d => {
-                    if (d[4])
-                        keywords = [...keywords, ...d[4].split('|').map(v => v.trim())]
-                })
-                keywords = [...new Set(keywords.map(item => item))];
-                let options = []
-                keywords.map(k =>
-                    options.push({
-                        label: k,
-                        value: k,
-                    })
-                )
-                setKeywordsOptions(options)
-
-                options = []
-                years.map(k =>
-                    options.push({
-                        label: k,
-                        value: k,
-                    })
-                )
-                setYearsOptions(options)
-
-                options = []
-                owners.map(k =>
-                    options.push({
-                        label: k,
-                        value: k,
-                    })
-                )
-                setOwnersOptions(options)
-
-                options = []
-                sources.map(k =>
-                    options.push({
-                        label: k,
-                        value: k,
-                    })
-                )
-                setSourceOptions(options)
-
-                options = []
-                types.map(k =>
-                    options.push({
-                        label: k,
-                        value: k,
-                    })
-                )
-                setTypesOptions(options)
-
-                let f = [
-                    {
-                        field: '0',//year
-                        values: []
-                    },
-                    {
-                        field: '1',//owner
-                        values: []
-                    },
-                    {
-                        field: '4',//keywords
-                        values: []
-                    },
-                    {
-                        field: '5',//source
-                        values: []
-                    },
-                    {
-                        field: '6',//type
-                        values: []
-                    }
-                ]
-
+                setFiltersValues(data)
                 setData(response.data)
-                setFilters(f)
             }catch (e){
                 notification.error({
                     message: `Error`,
@@ -112,6 +34,125 @@ function App() {
         }
         getData()
     },[])
+
+    const setFiltersValues = (data) => {
+        const owners = [...new Set(data.map(item => item[1]))];
+        const sources = [...new Set(data.map(item => item[5]))];
+        const types = [...new Set(data.map(item => item[6]))];
+        const years = [...new Set(data.map(item => item[0].split('-')[0]))];
+        let keywords = []
+        data.map(d => {
+            if (d[4])
+                keywords = [...keywords, ...d[4].split('|').map(v => v.trim())]
+        })
+        keywords = [...new Set(keywords.map(item => item))];
+        let options = []
+        keywords.map(k =>
+            options.push({
+                label: k,
+                value: k,
+            })
+        )
+        setKeywordsOptions(options)
+
+        options = []
+        years.map(k =>
+            options.push({
+                label: k,
+                value: k,
+            })
+        )
+        setYearsOptions(options)
+
+        options = []
+        owners.map(k =>
+            options.push({
+                label: k,
+                value: k,
+            })
+        )
+        setOwnersOptions(options)
+
+        options = []
+        sources.map(k =>
+            options.push({
+                label: k,
+                value: k,
+            })
+        )
+        setSourceOptions(options)
+
+        options = []
+        types.map(k =>
+            options.push({
+                label: k,
+                value: k,
+            })
+        )
+        setTypesOptions(options)
+
+        let f = [
+            {
+                field: '0',//year
+                values: []
+            },
+            {
+                field: '1',//owner
+                values: []
+            },
+            {
+                field: '4',//keywords
+                values: []
+            },
+            {
+                field: '5',//source
+                values: []
+            },
+            {
+                field: '6',//type
+                values: []
+            }
+        ]
+
+        setFilters(f)
+    }
+
+    const updateFiltersValues = (data) => {
+        const sources = [...new Set(data.map(item => item[5]))];
+        const types = [...new Set(data.map(item => item[6]))];
+        let keywords = []
+        data.map(d => {
+            if (d[4])
+                keywords = [...keywords, ...d[4].split('|').map(v => v.trim())]
+        })
+        keywords = [...new Set(keywords.map(item => item))];
+        let options = []
+        keywords.map(k =>
+            options.push({
+                label: k,
+                value: k,
+            })
+        )
+        setKeywordsOptions(options)
+
+        options = []
+        sources.map(k =>
+            options.push({
+                label: k,
+                value: k,
+            })
+        )
+        setSourceOptions(options)
+
+        options = []
+        types.map(k =>
+            options.push({
+                label: k,
+                value: k,
+            })
+        )
+        setTypesOptions(options)
+    }
 
     const columns = [
         {
@@ -240,7 +281,7 @@ function App() {
               <img style={{float: 'left', width: '150px'}} src={require('./logo.png')}/>
               {/*<h1 style={{fontSize: '48px'}}>Scholar</h1>*/}
           </Space>
-          <Space
+          {/*<Space
               style={{
                   width: '100%',
               }}
@@ -254,57 +295,13 @@ function App() {
                           width: '100%',
                       }}
                       placeholder="Please select"
-                      /*defaultValue={['a10', 'c12']}*/
                       onChange={handleKeywordsChange}
                       options={keywordsOptions}
                   />
               </Card>
-          </Space>
-          <div
-              style={{
-                  width: '100%',
-              }}
-          >
-              <Card title={'Year'} className={'filter1'}>
-                  <Select
-                      key={'year'}
-                      mode="multiple"
-                      style={{
-                          width: '100%',
-                      }}
-                      placeholder="Please select"
-                      /*defaultValue={['a10', 'c12']}*/
-                      onChange={handleYearsChange}
-                      options={yearsOptions}
-                  />
-              </Card>
-              <Card title={'Owner'} className={'filter1'}>
-                  <Select
-                      key={'owner'}
-                      mode="multiple"
-                      style={{
-                          width: '100%',
-                      }}
-                      placeholder="Please select"
-                      /*defaultValue={['a10', 'c12']}*/
-                      onChange={handleOwnersChange}
-                      options={ownersOptions}
-                  />
-              </Card>
-              <Card title={'Source'} className={'filter1'}>
-                  <Select
-                      key={'source'}
-                      mode="multiple"
-                      placeholder="Please select"
-                      style={{
-                          width: '100%',
-                      }}
-                      /*defaultValue={['a10', 'c12']}*/
-                      onChange={handleSourcesChange}
-                      options={sourceOptions}
-                  />
-              </Card>
-              <Card title={'Type'} className={'filter1'}>
+          </Space>*/}
+          <Descriptions title="Filters" layout="vertical" bordered>
+              <Descriptions.Item label="Type">
                   <Select
                       key={'type'}
                       mode="multiple"
@@ -316,9 +313,61 @@ function App() {
                       onChange={handleTypessChange}
                       options={typesOptions}
                   />
-              </Card>
-          </div>
-         <CTable dataSource={data} columns={columns} filters={filters} api={api}/>
+              </Descriptions.Item>
+              <Descriptions.Item label="Year">
+                  <Select
+                      key={'year'}
+                      mode="multiple"
+                      style={{
+                          width: '100%',
+                      }}
+                      placeholder="Please select"
+                      /*defaultValue={['a10', 'c12']}*/
+                      onChange={handleYearsChange}
+                      options={yearsOptions}
+                  />
+              </Descriptions.Item>
+              <Descriptions.Item label="Owner">
+                  <Select
+                      key={'owner'}
+                      mode="multiple"
+                      style={{
+                          width: '100%',
+                      }}
+                      placeholder="Please select"
+                      /*defaultValue={['a10', 'c12']}*/
+                      onChange={handleOwnersChange}
+                      options={ownersOptions}
+                  />
+              </Descriptions.Item>
+              <Descriptions.Item label="Source">
+                  <Select
+                      key={'source'}
+                      mode="multiple"
+                      placeholder="Please select"
+                      style={{
+                          width: '100%',
+                      }}
+                      /*defaultValue={['a10', 'c12']}*/
+                      onChange={handleSourcesChange}
+                      options={sourceOptions}
+                  />
+              </Descriptions.Item>
+              <Descriptions.Item label="Keyword">
+                  <Select
+                      key={'keywords'}
+                      mode="multiple"
+                      style={{
+                          width: '100%',
+                      }}
+                      placeholder="Please select"
+                      /*defaultValue={['a10', 'c12']}*/
+                      onChange={handleKeywordsChange}
+                      options={keywordsOptions}
+                  />
+              </Descriptions.Item>
+          </Descriptions>
+         <CTable dataSource={data} columns={columns} filters={filters} api={api} updateFilters={updateFiltersValues}/>
           <Modal
               title="Scholar Entry"
               visible={showAbstractModal}

@@ -49,8 +49,9 @@
 }
 
 .filter1{
-  width: 23.75%;
+  min-width: 18% ;
+  width: auto;/*23.75%;*/
   margin: 8px;
   position: relative;
-  float: left;
+  /*float: left;*/
 }
