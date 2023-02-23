@@ -313,6 +313,13 @@ function App() {
               </Card>
           </Space>*/}
           <Descriptions title="Filters" layout="vertical" bordered>
+              <Descriptions.Item label="Global Search">
+                  <Input.Search
+                      allowClear
+                      className={'filter1'}
+                      onChange={onGlobalSearchChange}
+                  />
+              </Descriptions.Item>
               <Descriptions.Item label="Type">
                   <Select
                       key={'type'}
@@ -344,13 +351,6 @@ function App() {
                       /*defaultValue={['a10', 'c12']}*/
                       onChange={handleOwnersChange}
                       options={ownersOptions}
-                  />
-              </Descriptions.Item>
-              <Descriptions.Item label="Global Search">
-                  <Input.Search
-                      allowClear
-                      className={'filter1'}
-                      onChange={onGlobalSearchChange}
                   />
               </Descriptions.Item>
               <Descriptions.Item label="Source">

@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/isis-scholar/static/css/main.29a4b4f7.css",
-    "main.js": "/isis-scholar/static/js/main.265e6c16.js",
+    "main.css": "/isis-scholar/static/css/main.9dedd49c.css",
+    "main.js": "/isis-scholar/static/js/main.2a5deebb.js",
     "static/js/787.88471bbd.chunk.js": "/isis-scholar/static/js/787.88471bbd.chunk.js",
     "index.html": "/isis-scholar/index.html",
-    "main.29a4b4f7.css.map": "/isis-scholar/static/css/main.29a4b4f7.css.map",
-    "main.265e6c16.js.map": "/isis-scholar/static/js/main.265e6c16.js.map",
+    "main.9dedd49c.css.map": "/isis-scholar/static/css/main.9dedd49c.css.map",
+    "main.2a5deebb.js.map": "/isis-scholar/static/js/main.2a5deebb.js.map",
     "787.88471bbd.chunk.js.map": "/isis-scholar/static/js/787.88471bbd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.29a4b4f7.css",
-    "static/js/main.265e6c16.js"
+    "static/css/main.9dedd49c.css",
+    "static/js/main.2a5deebb.js"
   ]
 }
