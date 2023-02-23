@@ -84,7 +84,7 @@ export default function CTable ({url, dataSource, columns, actions, api, filters
             }
         }
         setDataSource(data)
-        updateFilters(data)
+        if(updateFilters) updateFilters(data)
     }
 
     const getApi = () => {

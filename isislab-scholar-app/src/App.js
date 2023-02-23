@@ -367,7 +367,7 @@ function App() {
                   />
               </Descriptions.Item>
           </Descriptions>
-         <CTable dataSource={data} columns={columns} filters={filters} api={api} updateFilters={updateFiltersValues}/>
+         <CTable dataSource={data} columns={columns} filters={filters} api={api} />
           <Modal
               title="Scholar Entry"
               visible={showAbstractModal}
