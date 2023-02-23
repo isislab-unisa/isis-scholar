@@ -164,43 +164,51 @@ function App() {
             title: 'Year',
             dataIndex: '0',
             key: 'year',
+            width : '5%',
             sorter: (a, b) => a[0].localeCompare(b[0])
         },
         {
             title: 'Owner',
             dataIndex: '1',
             key: 'owner',
+            width : '5%',
             sorter: (a, b) => a[1].localeCompare(b[1])
         },
         {
             title: 'Title',
             dataIndex: '2',
+            width : '15%',
             key: 'title'
         },
         {
             title: 'Abstract',
             dataIndex: '3',
             key: 'abstract',
+            width : '40%',
             render: (text) => <p>{text && text.slice(0, 200) + '...'}</p>
         },
         {
             title: 'Keywords',
             dataIndex: '4',
+            width : '15%',
             key: 'keywords'
         },
         {
             title: 'Source',
             dataIndex: '5',
+            width : '5%',
             key: 'source'
         },
         {
             title: 'Type',
             dataIndex: '6',
+            width : '5%',
             key: 'type'
         },
         {
             title: 'DOI',
             dataIndex: '7',
+            width : '10%',
             key: 'doi',
             render: (text) => <a href={text} target='_blank'>{text}</a>
         }
