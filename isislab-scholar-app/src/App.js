@@ -164,13 +164,13 @@ function App() {
             title: 'Year',
             dataIndex: '0',
             key: 'year',
-            sorter: (a, b) => {a[0].localeCompare(b[0])}
+            sorter: (a, b) => a[0].localeCompare(b[0])
         },
         {
             title: 'Owner',
             dataIndex: '1',
             key: 'owner',
-            sorter: (a, b) => {a[1].localeCompare(b[1])}
+            sorter: (a, b) => a[1].localeCompare(b[1])
         },
         {
             title: 'Title',
