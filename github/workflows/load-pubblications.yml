@@ -1,4 +1,4 @@
-name: Run Script
+name: Load pubblications
 
 on:
   workflow_dispatch:
