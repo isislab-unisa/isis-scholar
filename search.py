@@ -17,7 +17,8 @@ authors ={
 "Gennaro Cordasco" : '57193482076',
 "Vittorio Scarano" : '7004638056',
 "Delfina Malandrino" : '7801383595',
-"Biagio Cosenza" : '26029283100'}
+"Biagio Cosenza" : '26029283100',
+"Maria Angela Pellegrino": '57204732130'}
 p_index = 0
 for author in authors:
     sauthor = AuthorRetrieval(authors[author])
